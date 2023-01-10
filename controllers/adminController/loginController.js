@@ -7,7 +7,7 @@ let message=''
 module.exports={
     loginGet: (req, res) => {
         if (req.session.admin) {
-            res.send("Admin Home")
+            res.redirect('/admin/home')
             // res.redirect('/admin/home')
         }else{
             res.render('admin/adminLogin', { message ,admin:false,user:false})
@@ -24,9 +24,8 @@ module.exports={
                 console.log(status)
 
                 if (status) {  
-                    console.log('login success');
                     req.session.admin = adminDetails.email
-                    res.render('admin/adminHome',{admin:true,user:false})
+                    res.redirect('/admin/home')
                     // res.redirect('/admin/home')
                 }
                 else {
@@ -41,5 +40,12 @@ module.exports={
             }
        
     },
+    adminHome: async(req,res)=>{
+        if(req.session.admin){
+            res.render('admin/adminHome',{admin:true,user:false})
+        }else{
+            res.redirect('/admin')
+        }
+    }
 
 }

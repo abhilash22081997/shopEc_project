@@ -20,5 +20,19 @@ module.exports = {
         } catch(error) {
             console.log(error.message);
         }
+    },
+    categoryAction: async (req, res) => {
+        try {
+            let id = req.query.id;
+            const categoryData = await categories.findById(id);
+            if (categoryData.status) {
+            await categories.findByIdAndUpdate(id,{$set:{status:false}});
+            } else {
+            await categories.findByIdAndUpdate(id,{$set:{status:true}});
+            }
+            res.redirect('/admin/categories');
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 }   
