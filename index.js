@@ -4,6 +4,7 @@ const session = require('express-session')
 const mongoose = require('mongoose');
 var expressLayouts = require('express-ejs-layouts');
 
+mongoose.set('strictQuery', false);
 mongoose.connect("mongodb://127.0.0.1:27017/shopEc");
 //-----------------------------
 

@@ -15,6 +15,7 @@ router.get('/userAction',userController.userAction)
 router.get('/categories',categoryController.categoriesGet)
 router.post('/categories',uploadToFile.single('image', 12),categoryController.categoriesPost)
 router.get('/products',productController.productGet)
-
+router.get('/addProduct',productController.addProductGet)
+router.post('/addProduct',uploadToFile.single('image',12),productController.addProductPost)
 
 module.exports=router;

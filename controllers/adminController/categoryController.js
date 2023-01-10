@@ -12,8 +12,7 @@ module.exports = {
             imagePath = imagePath.replace('public/', '');
             const newCategory = new categories({
                 category:req.body.name,
-                imagePath: imagePath,
-                status:0
+                imagePath: imagePath
             })
     
             const categoryData = await newCategory.save();

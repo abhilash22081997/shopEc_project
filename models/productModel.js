@@ -33,20 +33,20 @@ const productSchema = new mongoose.Schema({
         required:true
     },
     category:{
-        type:mongoose.SchemaTypes.ObjectId,
-        ref:'categories',
+        type:String,
+        required:true
     },
     description:{
         type:String,
         required:true
     },
     blockStatus: {
-        type: Number,
-        required: true
+        type: Boolean,
+        default: false
     },
     categoryBlockStatus: {
-        type: Number,
-        default: 0,
+        type: Boolean,
+        default: false,
     },
     imagePath: {
         type: String,

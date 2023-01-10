@@ -64,30 +64,30 @@
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInput"
-                                    placeholder="name@example.com" name="name" required>
+                                    placeholder="name@example.com" name="author" required>
                                 <label for="floatingInput">Author</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInput"
-                                    placeholder="name@example.com" name="name" required>
+                                    placeholder="name@example.com" name="language" required>
                                 <label for="floatingInput">Language</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInput"
-                                    placeholder="name@example.com" name="name" required>
+                                    placeholder="name@example.com" name="publisher" required>
                                 <label for="floatingInput">Publisher</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput"
-                                    placeholder="name@example.com" name="name" required>
+                                <input type="number" class="form-control" id="floatingInput"
+                                    placeholder="name@example.com" name="isbn" required>
                                 <label for="floatingInput">ISBN</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <select class="form-select" id="floatingSelect"
-                                    aria-label="Floating label select example" name="productCategory" required>
+                                    aria-label="Floating label select example" name="category" required>
                                     <option selected value="">Product Category</option>
                                     <% category.forEach((category)=>{ %>
-                                        <option value="<%=   category._id %>"><%= category.name %></option>
+                                        <option value="<%=category.category%>"><%= category.category %></option>
                                     <% }); %> 
                                 </select>
                                 <label for="floatingSelect">choose from here</label>
@@ -95,7 +95,7 @@
                             <div class="d-flex">
                                 <div class="form-floating mb-3 col-sm-2">
                                     <input type="number" class="form-control" id="floatingPassword" name="stock"
-                                        placeholder="Stock" required>
+                                        placeholder="stock" required>
                                     <label for="floatingPassword">Stock</label>
                                 </div>
 
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="form-floating mb-3 col-sm-4 col-md-3 ms-3">
                                     <input type="number" class="form-control" id="floatingPassword"
-                                        placeholder="Password" name="sellingPrice" required>
+                                        placeholder="Password" name="srp" required>
                                     <label for="floatingPassword">Selling Price</label>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                             <div class="mb-3">
                                 <label for="formFileMultiple" class="form-label">Image</label>
                                 <input class="form-control bg-dark" type="file"
-                                    accept="image/png, image/gif, image/jpeg" id="formFileMultiple" name="picture"
+                                    accept="image/png, image/gif, image/jpeg" id="formFileMultiple" name="image"
                                     multiple required>
                             </div>
 
