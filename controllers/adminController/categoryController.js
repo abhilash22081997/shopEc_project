@@ -2,7 +2,7 @@ const categories = require('../../models/categoryModel')
 
 module.exports = {
     categoriesGet: async (req, res) => {
-        let allCategory = await categories.find({}).lean()
+        let allCategory = await categories.find()
         console.log(allCategory);
         res.render('admin/categories', { admin: true,user:false, data: allCategory, category: true })
     },
@@ -34,5 +34,6 @@ module.exports = {
         } catch (error) {
             console.log(error.message);
         }
-    }
-}   
+    },
+ 
+} 

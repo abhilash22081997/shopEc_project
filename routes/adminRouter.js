@@ -19,5 +19,8 @@ router.get('/categoryAction',categoryController.categoryAction);
 router.get('/products',productController.productGet)
 router.get('/addProduct',productController.addProductGet)
 router.post('/addProduct',uploadToFile.single('image',12),productController.addProductPost)
+router.get('/productStatus',productController.productStatus);
+router.get('/editProduct',productController.productEditGet)
+router.post('/editProduct',productController.productEditPost)
 
 module.exports=router;
