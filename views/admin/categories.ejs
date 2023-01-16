@@ -104,7 +104,7 @@
                                     <td><%= data.category %> </td>
                                     <td><img src="/<%=data.imagePath%>" alt="" width="80"></td>
                                     <td>
-                                        <% if(data.status){ %> 
+                                        <% if(!data.status){ %> 
                                         <a class="btn btn-sm btn-primary  ms-3"
                                             href="/admin/categoryAction/?id=<%=data._id%>"
                                             onclick="return confirm('Are you sure want to disable this category?')">Disable</a>

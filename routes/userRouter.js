@@ -15,7 +15,9 @@ router.get('/login',userLoginController.getLoginPage)
 router.post('/login',userLoginController.postLoginPage)
 
 router.get('/',userHomeController.getHome)
+ 
+router.get('/singleProduct/:id',userHomeController.getSingleProduct)
 
 
 
-module.exports = router; 
+module.exports = router;  

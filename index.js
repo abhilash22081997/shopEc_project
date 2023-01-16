@@ -3,6 +3,8 @@ const app = express();
 const session = require('express-session')
 const mongoose = require('mongoose');
 var expressLayouts = require('express-ejs-layouts');
+const cookieParser = require('cookie-parser')
+
 
 mongoose.set('strictQuery', false);
 mongoose.connect("mongodb://127.0.0.1:27017/shopEc");
@@ -14,6 +16,7 @@ const adminRouter= require('./routes/adminRouter')
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+app.use(cookieParser())
 
 app.use(session({
     secret:'thisismysecretkey',

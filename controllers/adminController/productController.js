@@ -7,7 +7,7 @@ module.exports= {
         
     } ,
     addProductGet:async (req, res) => {
-        const categoryDetails = await categories.find({ status: { $ne: true } })
+        const categoryDetails = await categories.find({ status:false })
         res.render('admin/addProduct', { admin: true, category: categoryDetails, product: true,user:false })
         msg = ''
     },
@@ -36,7 +36,7 @@ module.exports= {
     },
     productEditGet: async (req, res) => {
         let id = req.query.id;
-        const categoryDetails = await categories.find({ status: { $ne: true } })
+        const categoryDetails = await categories.find({ status:false })
         let productDetails = await products.findById(id);
        
         res.render('admin/editProducts', { admin: true, data: productDetails, product: true, categoryDetails ,user:false })

@@ -119,7 +119,7 @@
                                                 <a href="/admin/editProduct?id=<%= products._id %>"
                                                     class="btn btn-warning m-2"> Edit</a>
                                                 <br>
-                                                <% if(products.blockStatus==true){ %> 
+                                                <% if(!products.blockStatus){ %> 
                                                     <a href="/admin/productStatus?id=<%= products._id %>"><button class="btn btn-danger m-2" onclick="return confirm('Are you sure you want to disable the product <%= products.name %>')">Disable</button></a>
                                                 <% }else{ %> 
                                                     <a href="/admin/productStatus?id=<%= products._id %>"><button class="btn btn-info m-2" onclick="return confirm('Are you sure you want to enable the product <%= products.name %>')">Enable</button></a>
