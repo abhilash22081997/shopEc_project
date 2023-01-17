@@ -17,7 +17,11 @@ module.exports= {
         let proId=req.params.id
         let proDetails=await products.findOne({_id:proId})
         console.log(proDetails);
-        res.render('user/singleProduct',{proDetails,user:true,admin:false })
+        if (req.session.userId) {   
+        res.render('user/singleProduct',{proDetails,user:true,admin:false ,userLogged:true})
+        }else{
+            res.render('user/singleProduct',{proDetails,user:true,admin:false,userLogged:false }) 
+        }
 
     }
 }

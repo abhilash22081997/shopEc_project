@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 let emailExistMessage = ''
 module.exports={
     getSignupPage:(req,res)=>{
-        res.render('user/userSignup',{emailExistMessage,user:true,admin:false});
+        res.render('user/userSignup',{emailExistMessage,user:true,admin:false,userLogged:false});
         emailExistMessage = ''
     },
 postSignupPage:async(req,res)=>{
@@ -19,7 +19,10 @@ postSignupPage:async(req,res)=>{
     }
 },
 getLoginPage:(req,res)=>{
-    res.render('user/userLogin',{user:true,admin:false});
+    if(req.session.userId){
+        res.redirect('/')
+    }
+    res.render('user/userLogin',{user:true,admin:false,userLogged:false});
 },
 postLoginPage:async (req, res) => {
     let userDetails = req.body

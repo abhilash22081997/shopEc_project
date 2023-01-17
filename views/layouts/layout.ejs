@@ -17,9 +17,11 @@
 <body>
 
     <% if (user) {%>
+        <div class="page-holder">
         <%- include('../partials/userNavbar.ejs') %>
         <%- body %>
         <%- include('../partials/userFooter.ejs') %>
+        </div>
         <% }else if(admin) { %>
         <%- include('../partials/adminPartial.ejs') %>
         <%- body %>
