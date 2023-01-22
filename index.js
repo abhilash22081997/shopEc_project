@@ -35,7 +35,7 @@ app.use(express.static('public'));
 app.use('/',userRouter)
 app.use('/admin',adminRouter)
 
-const PORT = 3000;
+const PORT = 3001;
 
 
 app.listen(PORT, () => {

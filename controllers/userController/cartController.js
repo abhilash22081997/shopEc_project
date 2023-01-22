@@ -30,28 +30,54 @@ module.exports = {
         } catch (error) {
             console.log(error.message);
         }
-    },
+    },  
     getCart: async (req, res) => {
         try {
             if (req.session.userId) {
                 let userId = req.session.userId;
-                let products = await cart.findOne({ userId: userId }).populate('cartItems.productId')
+                let products = await cart.findOne({ userId: userId }).populate('cartItems.productId') 
                 let productDetails = products.cartItems;
+
                 if (!products) {
                     res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, msg: 'cart is empty' })
                 } else {
-
+                    console.log(productDetails);
                     let subTotal = 0;
                     productDetails.forEach((element) => {
                         subTotal += (element.productId.srp * element.quantity);
                     });
 
 
-                    res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, msg: '' })
+                    res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, msg: '',subTotal })
                 }
             } else {
                 res.redirect('/login')
             }
+        } catch (error) {
+            console.log(error.message)
+        }
+    },
+
+    changeQuantity:async(req,res)=>{
+        try {
+            let userId = req.session.userId
+            console.log(req.body)
+            let {proId,count} = req.body
+            count = parseInt(count);
+            proId = mongoose.Types.ObjectId(proId);
+            await cart.updateOne({ userId: userId, 'cartItems.productId': proId }, { $inc: { 'cartItems.$.quantity': count } })
+            res.json({status:true})
+        } catch (error) {
+            console.log(error.message)
+        }
+    },
+    removeFromCart:async(req,res)=>{
+        try {
+            let userId = req.session.userId;
+            let proId = req.body.proId;
+            proId = mongoose.Types.ObjectId(proId);
+            await cart.updateOne({ userId: userId }, { $pull: { cartItems:{productId: proId }}})
+            res.json({ status: true })
         } catch (error) {
             console.log(error.message)
         }

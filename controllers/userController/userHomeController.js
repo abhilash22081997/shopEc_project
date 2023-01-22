@@ -15,8 +15,7 @@ module.exports= {
     },
     getSingleProduct:async(req,res)=>{
         let proId=req.params.id
-        let proDetails=await products.findOne({_id:proId})
-        console.log(proDetails);
+        let proDetails=await products.findOne({_id:proId})  
         if (req.session.userId) {   
         res.render('user/singleProduct',{proDetails,user:true,admin:false ,userLogged:true})
         }else{

@@ -111,21 +111,21 @@
                         </div>
                       </th>
                       <td class="p-3 align-middle border-light">
-                        <p class="mb-0 small">Rs. <%=pro.productId.srp%></p>
+                        <p class="mb-0 small" id="productPrice<%=pro.productId.id%>">Rs. <%=pro.productId.srp%></p>
                       </td>
                       <td class="p-3 align-middle border-light">
-                        <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">Quantity</span>
+                        <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">QUANTITY</span>
                           <div class="quantity">
-                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="<%=pro.quantity%>"/>
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                            <button onclick="changeQuantity('<%=pro.productId._id%>',-1)" id="reduce-btn<%= pro.productId._id %>" class=" <% if(pro.quantity===1){%> d-none<% } %> p-0"><i class="fas  fa-caret-left" id="neg-button<%=pro.productId.id%>"></i></button>
+                            <input class="form-control form-control-sm border-0 shadow-0 p-0" id="quantityDisplay<%=pro.productId.id %>" type="text" value="<%=pro.quantity%>" readonly/>
+                            <button onclick="changeQuantity('<%=pro.productId._id%>',1)" class=" p-0"><i class="fas fa-caret-right"></i></button>
                           </div>
                         </div>
                       </td>
                       <td class="p-3 align-middle border-light">
-                        <p class="mb-0 small">Rs. <%=(pro.productId.srp*pro.quantity)%> </p>
+                        <p class="mb-0 small" id="productTotal<%=pro.productId.id%>" >Rs. <%=(pro.productId.srp*pro.quantity)%> </p>
                       </td>
-                      <td class="p-3 align-middle border-light"><a class="reset-anchor" href="#!"><i class="fas fa-trash-alt small text-muted"></i></a></td>
+                      <td class="p-3 align-middle border-light"><a class="reset-anchor"><i onclick="removeFromCart('<%=pro.productId._id%>')" class="fas fa-trash-alt small text-muted"></i></a></td>
                     </tr>
                     <% }) %> 
                   </tbody>
@@ -148,19 +148,19 @@
                     <%let subtotal=0; data.forEach((pro)=> { %> 
                       <% subtotal+=(pro.productId.srp*pro.quantity)%>
                     <% }) %> 
-                    <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">Rs. <%=subtotal%> </span></li>
+                    <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small" id="totalCartPrice">₹<%=subtotal%> </span></li>
                     <li class="border-bottom my-2"></li>
-                    <li class="d-flex align-items-center justify-content-between mb-4"><span class="text-capitalize ">Shipping charge</span><span class="text-muted small">Rs. <% let shippingCost=50; if(subtotal>500){shippingCost=0}%><%= shippingCost %>  </span></li>
+                    <li class="d-flex align-items-center justify-content-between mb-4"><span class="text-capitalize ">Shipping charge</span><span class="text-muted small" id="shippingCharge">₹<% let shippingCost=50; if(subtotal>500){shippingCost=0}%><%= shippingCost %>  </span></li>
                     <li class="border-bottom my-2"></li>
-                    <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>Rs. <%= shippingCost+subtotal %> </span></li>
-                    <li>
+                    <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span id="fullTotal">₹<%= shippingCost+subtotal %> </span></li>
+                    <!-- <li>
                       <form action="#">
                         <div class="input-group mb-0">
                           <input class="form-control" type="text" placeholder="Enter your coupon">
                           <button class="btn btn-dark btn-sm w-100" type="submit"> <i class="fas fa-gift me-2"></i>Apply coupon</button>
                         </div>
                       </form>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </div>

@@ -23,6 +23,8 @@ router.get('/addToCart/:productId',cartController.addToCart)
 
 router.get('/cart',cartController.getCart)
 
+router.post('/changeProductQuantity',cartController.changeQuantity)
 
+router.post('/removeFromCart',cartController.removeFromCart)
 
 module.exports = router;  
