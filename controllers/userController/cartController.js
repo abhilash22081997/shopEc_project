@@ -41,7 +41,7 @@ module.exports = {
                 if (!products) {
                     res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, msg: 'cart is empty' })
                 } else {
-                    console.log(productDetails);
+                 
                     let subTotal = 0;
                     productDetails.forEach((element) => {
                         subTotal += (element.productId.srp * element.quantity);

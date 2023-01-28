@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Boutique | Ecommerce bootstrap template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- gLightbox gallery-->
+    <link rel="stylesheet" href="vendor/glightbox/css/glightbox.min.css">
+    <!-- Range slider-->
+    <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="vendor/choices.js/public/assets/styles/choices.min.css">
+    <!-- Swiper slider-->
+    <link rel="stylesheet" href="vendor/swiper/swiper-bundle.min.css">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.png">
+  </head>
+  <body>
+   
+      <!--  Modal -->
+      
+        <!-- HERO SECTION-->
+        <section class="py-5 bg-light">
+          <div class="container">
+            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+              <div class="col-lg-6">
+                <h1 class="h2 text-uppercase mb-0">Checkout</h1>
+              </div>
+              <div class="col-lg-6 text-lg-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                    <li class="breadcrumb-item"><a class="text-dark" href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-dark" href="cart.html">Cart</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="py-5 container ">
+            <!-- ORDER SUMMARY-->
+            <div class="row">
+                <div class="col-md-8">
+                  <div class="card border-0 rounded-0 p-lg-4 bg-light">
+                    <div class="card-body">
+                        <h5>ADDRESS</h5>
+                      <% if(status){  %>  
+                        <% let count=1; data.forEach((data)=>{ %> 
+                        <ul class="list-unstyled mb-0">
+                            <li><div class="radion_btn">
+                                <input type="radio" id="<%= data._id %> " name="address" value="<%= data._id %>">
+                                <label for="<%= data._id %> text-bold"><strong>ADDRESS <%= count %> </strong></label>
+                                <div class="check"></div>
+                            </div></li>
+                            <li class="d-flex align-item-cneter justify-content-between"><%=data.name%> </li>
+                            <li class="d-flex align-item-cneter justify-content-between"><%=data.mobile%> </li>
+                            <li class="d-flex align-item-cneter justify-content-between"><%=data.houseName%> </li>
+                            <li class="d-flex align-item-cneter justify-content-between"><%=data.district%> </li>
+                            <li class="d-flex align-item-cneter justify-content-between"><%=data.state%> </li>
+                            <li class="d-flex align-item-cneter justify-content-between"><%=data.pincode%> </li>
+                        </ul>
+                        <br>
+                    <% count++ })} %>  
+
+              
+                        <!-- <ul class="list-unstyled mb-0">
+                            <li><div class="radion_btn">
+                                <input type="radio" id="{{this._id}}" name="address" value="{{this._id}}">
+                                <label for="{{this._id}} text-bold"><strong>ADDRESS 2</strong></label>
+                                <div class="check"></div>
+                            </div></li>
+                            <li class="d-flex align-item-cneter justify-content-between">KP House</li>
+                            <li class="d-flex align-item-cneter justify-content-between">District</li>
+                            <li class="d-flex align-item-cneter justify-content-between">State</li>
+                            <li class="d-flex align-item-cneter justify-content-between">PINCODE</li>
+                        </ul> -->
+                    </div>
+                  </div>  
+                  <!-- Button trigger modal -->
+                   <div class="text-center">   
+                  <button type="button" class="btn rounded-pill border-secondary  mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    add new address
+                  </button>
+                </div>   
+                </div>
+                <div class="col-md-4">
+                  <div class="card border-0 rounded-0 p-lg-4 bg-light">
+                    <div class="card-body">
+                      <h5 class="text-uppercase mb-4">Your order</h5>
+                      <ul class="list-unstyled mb-0">
+                        <li class="d-flex align-items-center justify-content-between"><strong class="small fw-bold">Red digital smartwatch</strong><span class="text-muted small">$250</span></li>
+                        <li class="border-bottom my-2"></li>
+                        <li class="d-flex align-items-center justify-content-between"><strong class="small fw-bold">Gray Nike running shoes</strong><span class="text-muted small">$351</span></li>
+                        <li class="border-bottom my-2"></li>
+                        <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small fw-bold">Total</strong><span>$601</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+            </div>
+            
+        </section>
+      </div>
+      
+<div>
+        <form action='/addAddress' method="post">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add new
+          address</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group p_star mb-3">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+                required>
+        </div>
+        <div class=" form-group p_star mb-3">
+            <input type="number" class="form-control" id="mobile" name="mobile"
+                placeholder="Mobile" required>
+        </div>
+        <div class=" form-group mb-3">
+            <input type="text" class="form-control" id="houseName" name="houseName"
+                placeholder="House name / Building name" required>
+        </div>
+        <div class=" form-group p_star mb-3">
+            <input type="text" class="form-control" id="district" name="district"
+                placeholder="District" required>
+        </div>
+        <div class=" form-group p_star mb-3">
+            <input type="text" class="form-control" id="state" name="state" placeholder="State"
+                required>
+        </div>
+        <div class=" form-group p_star mb-3">
+            <input type="number" class="form-control" id="pincode" name="pincode"
+                placeholder="postcode/ZIP" required>
+        </div>
+
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+        </form>
+      </div>
+     
+      <!-- JavaScript files-->
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="vendor/glightbox/js/glightbox.min.js"></script>
+      <script src="vendor/nouislider/nouislider.min.js"></script>
+      <script src="vendor/swiper/swiper-bundle.min.js"></script>
+      <script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+      <script src="js/front.js"></script>
+      <script>
+        // ------------------------------------------------------- //
+        //   Inject SVG Sprite - 
+        //   see more here 
+        //   https://css-tricks.com/ajaxing-svg-sprite/
+        // ------------------------------------------------------ //
+        function injectSvgSprite(path) {
+        
+            var ajax = new XMLHttpRequest();
+            ajax.open("GET", path, true);
+            ajax.send();
+            ajax.onload = function(e) {
+            var div = document.createElement("div");
+            div.className = 'd-none';
+            div.innerHTML = ajax.responseText;
+            document.body.insertBefore(div, document.body.childNodes[0]);
+            }
+        }
+        // this is set to BootstrapTemple website as you cannot 
+        // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+        // while using file:// protocol
+        // pls don't forget to change to your domain :)
+        injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
+        
+      </script>
+      <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </div>
+  </body>
+</html>
