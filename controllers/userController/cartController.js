@@ -33,7 +33,6 @@ module.exports = {
     },  
     getCart: async (req, res) => {
         try {
-            if (req.session.userId) {
                 let userId = req.session.userId;
                 let products = await cart.findOne({ userId: userId }).populate('cartItems.productId') 
                 let productDetails = products.cartItems;
@@ -50,9 +49,6 @@ module.exports = {
 
                     res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, msg: '',subTotal })
                 }
-            } else {
-                res.redirect('/login')
-            }
         } catch (error) {
             console.log(error.message)
         }

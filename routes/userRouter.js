@@ -3,6 +3,7 @@ const userLoginController=require('../controllers/userController/userLoginContro
 const userHomeController = require('../controllers/userController/userHomeController')
 const cartController = require('../controllers/userController/cartController')
 const checkoutController = require('../controllers/userController/checkoutController')
+const authUser = require('../middleware/authUser').authUser
 
 
 
@@ -28,6 +29,8 @@ router.post('/changeProductQuantity',cartController.changeQuantity)
 
 router.post('/removeFromCart',cartController.removeFromCart)
 
-router.get('/checkout',checkoutController.checkoutPage)
+router.get('/checkout',authUser,checkoutController.checkoutPage)
 
+router.post('/addAddress',authUser,checkoutController.addressAdd)
+  
 module.exports = router;  
