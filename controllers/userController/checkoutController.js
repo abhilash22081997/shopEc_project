@@ -1,7 +1,14 @@
 const carts = require("../../models/cartModel");
 const user = require('../../models/userModel');
 const addresses = require('../../models/addressModel');
+const orders = require('../../models/orderModel')
 const mongoose = require('mongoose')
+const Razorpay = require('razorpay');
+
+var razorpayInstance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEYID,
+    key_secret: process.env.RAZORPAY_SECRET,
+});
 
 module.exports = {
     checkoutPage: async (req, res) => {
@@ -44,5 +51,81 @@ module.exports = {
            await addresses.create({userId:userId,address:{name,mobile,houseName,district,state,pincode}})
          }
          res.redirect('/checkout')
+        },
+
+    placeOrder:async(req,res)=>{
+        let userId = req.session.userId;   
+        let { paymentMethod, address, total } = req.body
+        console.log(total)
+        if (!req.body.address || !req.body.paymentMethod) {
+            res.json({ paymentOrAddress: false })
+        } else {
+            let status = paymentMethod === 'COD' ? 'placed' : 'pending'
+            if (status === 'placed') {
+                let addressss = await addresses.findOne({ userId: userId }, { address: { $elemMatch: { _id: address } } });
+                addressss = addressss.address[0]
+                let cartId = await carts.findOne({ userId: userId }, { 'cartItems._id': 0 })
+                cartDetails = cartId.cartItems
+                let order = await orders.findOne({ userId: userId })
+                if (order) {
+                    await orders.updateOne({ userId: userId }, { $push: { orderDetails: { paymentMethod, address: addressss, orderItems: cartDetails, total } } })
+                } else {
+                    await orders.create({ userId: userId, orderDetails: { paymentMethod, address: addressss, orderItems: cartDetails, total } })
+                }
+                await carts.deleteOne({ userId: userId })
+                res.json({ codSuccess: true })
+            } else {
+                let addressss = await addresses.findOne({ userId: userId }, { address: { $elemMatch: { _id: address } } });
+                addressss = addressss.address[0]
+                let cartId = await carts.findOne({ userId: userId }, { 'cartItems._id': 0 })
+                cartDetails = cartId.cartItems
+                let orderr = await orders.findOne({ userId: userId })
+                if (orderr) {
+                    await orders.updateOne({ userId: userId }, { $push: { orderDetails: { paymentMethod, address: addressss, orderItems: cartDetails, total,status } } })
+                } else {
+                    await orders.create({ userId: userId, orderDetails: { paymentMethod, address: addressss, orderItems: cartDetails, total ,status} })
+                }
+                await carts.deleteOne({ userId: userId })
+                let order = await orders.findOne({ userId: userId }, { orderDetails: { $slice: -1 } }).lean()
+                let options = {
+                    amount: total * 100,
+                    currency: 'INR',
+                    receipt: '' + order.orderDetails[0]._id
+                }
+                razorpayInstance.orders.create(options,
+                    (err, order) => {
+                        if (!err)
+                            res.json(order) 
+                        else
+                            res.send(err);
+                    }
+                ) 
+            }
         }
-}
+
+    },
+    onlinePaymentVerify: async (req, res) => {
+        let details = req.body
+        const crypto = require('crypto')
+        let hmac = crypto.createHmac('sha256', 'GwkQn36GPCizkzfcgmLcsFBN')
+
+        hmac.update(details.payment.razorpay_order_id + '|' + details.payment.razorpay_payment_id)
+        hmac = hmac.digest('hex')
+        if (hmac == details.payment.razorpay_signature) {
+            console.log('payment successss');
+            await orders.updateOne({orderDetails:{$elemMatch:{_id:details.order.receipt}}},{'orderDetails.$.status':'placed order'})
+            res.json({ status: true })
+        } else {
+            res.json({ status: false })
+        }
+    },
+    orderConfirmation: async (req, res) => {
+        userId = req.session.userId
+        let order = await orders.findOne({ userId: userId }, { orderDetails: { $slice: -1 } }).lean()
+        let orderDetails = order.orderDetails[0]
+        let address = orderDetails.address
+        let date = orderDetails.createdAt
+        date = date.toDateString()
+        res.render('user/confirmation', { admin:false,user: true, userLogged: true, address, orderDetails, date })
+    },
+} 

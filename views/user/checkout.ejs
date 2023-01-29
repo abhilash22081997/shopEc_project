@@ -50,7 +50,9 @@
         </section>
         <section class="py-5 container ">
             <!-- ORDER SUMMARY-->
+            <form action="" id="placeOrderForm">
             <div class="row">
+             
                 <div class="col-md-8">
                   <div class="card border-0 rounded-0 p-lg-4 bg-light">
                     <div class="card-body">
@@ -74,17 +76,7 @@
                     <% count++ })} %>  
 
               
-                        <!-- <ul class="list-unstyled mb-0">
-                            <li><div class="radion_btn">
-                                <input type="radio" id="{{this._id}}" name="address" value="{{this._id}}">
-                                <label for="{{this._id}} text-bold"><strong>ADDRESS 2</strong></label>
-                                <div class="check"></div>
-                            </div></li>
-                            <li class="d-flex align-item-cneter justify-content-between">KP House</li>
-                            <li class="d-flex align-item-cneter justify-content-between">District</li>
-                            <li class="d-flex align-item-cneter justify-content-between">State</li>
-                            <li class="d-flex align-item-cneter justify-content-between">PINCODE</li>
-                        </ul> -->
+  
                     </div>
                   </div>  
                   <!-- Button trigger modal -->
@@ -97,26 +89,53 @@
                 <div class="col-md-4">
                   <div class="card border-0 rounded-0 p-lg-4 bg-light">
                     <div class="card-body">
-                      <h5 class="text-uppercase mb-4">Your order</h5>
+                      <h5 class="text-uppercase mb-4">Order Total</h5>
+                      <div>
                       <ul class="list-unstyled mb-0">
-                        <li class="d-flex align-items-center justify-content-between"><strong class="small fw-bold">Red digital smartwatch</strong><span class="text-muted small">$250</span></li>
                         <li class="border-bottom my-2"></li>
-                        <li class="d-flex align-items-center justify-content-between"><strong class="small fw-bold">Gray Nike running shoes</strong><span class="text-muted small">$351</span></li>
-                        <li class="border-bottom my-2"></li>
-                        <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small fw-bold">Total</strong><span>$601</span></li>
+                        <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small fw-bold">Total</strong><span></span>₹<%=total%> </li>
                       </ul>
+                    </div>
+                    <br>
+                        <div class="payment_item">
+                          <div class="radion_btn">
+                              <input type="radio" id="f-option5" name="paymentMethod" value="COD">
+                              <label style="font-weight:bold;" for="f-option5">Cash on delivery</label>
+                          </div>
+                          <p style="font-size: 13px;color:#666;">You can use pay on delivery for this order </p>
+                      </div>
+                      <div class="payment_item ">
+                        <div class="radion_btn">
+                            <input type="radio" id="f-option6" name="paymentMethod" value="Online">
+                            <label style="font-weight:bold;"for="f-option6">online payment</label>
+                        </div>
+                        <p style="font-size: 13px; color:#666;">Pay via online to ensure no-contact deliveries </p>
+                    </div>
+                    <div>
+                      <input type="number" name="total" value="<%=total %>" >
+                  </div>
+                  <p  class="text-danger d-none" id="paymentOrAddressMsg">Choose proper address or payment
+                    method</p>
+                    <div class="text-center">
+                      <button type="submit" style="background-color: rgb(24, 24, 27); color: white; padding: 10px; border-radius: 16px;" id="pay-button">Proceed</button>
+                  </div>
                     </div>
                   </div>
                   
                 </div>
             </div>
             
+            </form>
         </section>
-      </div>
+        
       
-<div>
-        <form action='/addAddress' method="post">
-<!-- Modal -->
+
+      
+
+  <!-- Modal -->
+       
+<form action='/addAddress' method="post">
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

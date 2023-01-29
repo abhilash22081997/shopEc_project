@@ -32,5 +32,11 @@ router.post('/removeFromCart',cartController.removeFromCart)
 router.get('/checkout',authUser,checkoutController.checkoutPage)
 
 router.post('/addAddress',authUser,checkoutController.addressAdd)
+
+router.post('/placeOrder',authUser,checkoutController.placeOrder)
+
+router.post('/verifyPayment',authUser,checkoutController.onlinePaymentVerify)
+
+router.get('/confirmation',authUser,checkoutController.orderConfirmation)
   
-module.exports = router;  
+module.exports = router;   

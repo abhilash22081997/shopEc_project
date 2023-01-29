@@ -60,3 +60,69 @@ function removeFromCart(proId){
         }
     })
 }
+
+$('#placeOrderForm').submit((e)=>{
+    e.preventDefault() 
+    $.ajax({
+        url:'/placeOrder',
+        method: 'post',
+        data: $('#placeOrderForm').serialize(),
+        success: (response) => {
+            if (response.paymentOrAddress == false) {
+                $('#paymentOrAddressMsg').removeClass('d-none')
+            }
+            if (response.codSuccess) {
+                location.href = '/confirmation'
+            } else if (response.status) {
+                razorPayment(response)
+            }
+        }
+
+    })
+})
+
+function razorPayment(order) {
+    var options = {
+        'key': 'rzp_test_byX4xjQdkJOyzX',
+        'amount': order.amount,
+        'currency': 'INR',
+        'name': 'shopec',
+        'description': 'shop ec book shop',
+        'order_id': order.id,
+        'handler': (response) => {
+            verifyPayment(response, order)
+        },
+        'prefill': {
+            'name': 'user',
+            'contact': '9999999999',
+            'email': 'user@gmail.com'
+        },
+        'notes': {
+            'address': 'Razorpay Corporate Office'
+        },
+        'theme': {
+            'color': '#F37254'
+        }
+    }
+    var rzp1 = new Razorpay(options)
+    rzp1.open()
+
+}
+
+function verifyPayment(payment, order) {
+    $.ajax({
+        url: '/verifyPayment',
+        data: {
+            payment,
+            order
+        },
+        method: 'post',
+        success: (response) => {
+            if (response.status) {
+                location.href = '/confirmation'
+            } else {
+                alert('payment failed')
+            }
+        }
+    })
+}
