@@ -82,8 +82,9 @@ $('#placeOrderForm').submit((e)=>{
 })
 
 function razorPayment(order) {
+    console.log('hlo');
     var options = {
-        'key': 'rzp_test_byX4xjQdkJOyzX',
+        'key': 'rzp_test_7ACCY6CqD2y8m1',
         'amount': order.amount,
         'currency': 'INR',
         'name': 'shopec',
@@ -106,7 +107,6 @@ function razorPayment(order) {
     }
     var rzp1 = new Razorpay(options)
     rzp1.open()
-
 }
 
 function verifyPayment(payment, order) {
@@ -119,10 +119,11 @@ function verifyPayment(payment, order) {
         method: 'post',
         success: (response) => {
             if (response.status) {
+                console.log(response.status);
                 location.href = '/confirmation'
             } else {
                 alert('payment failed')
             }
         }
     })
-}
+}  

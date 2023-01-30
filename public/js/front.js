@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			var siblings = el.parentElement.querySelector('input');
 			if (parseInt(siblings.value, 10) >= 1) {
 				siblings.value = parseInt(siblings.value, 10) - 1;
-			}
+			} 
 		});
 	});
 	document.querySelectorAll('.inc-btn').forEach((el) => {

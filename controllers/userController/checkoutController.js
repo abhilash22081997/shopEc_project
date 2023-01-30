@@ -4,6 +4,7 @@ const addresses = require('../../models/addressModel');
 const orders = require('../../models/orderModel')
 const mongoose = require('mongoose')
 const Razorpay = require('razorpay');
+require('dotenv/config');
 
 var razorpayInstance = new Razorpay({
     key_id: process.env.RAZORPAY_KEYID,
@@ -38,8 +39,6 @@ module.exports = {
             } else {
                 res.render('user/checkout', { admin:false,user: true,total,data:addresss,status:false,userLogged: true})
             }
-
-
     },
      addressAdd:async(req,res)=>{
          const { name,mobile,houseName,district,state,pincode}=req.body
@@ -105,10 +104,11 @@ module.exports = {
 
     },
     onlinePaymentVerify: async (req, res) => {
+        console.log('onlnepv');
         let details = req.body
         const crypto = require('crypto')
-        let hmac = crypto.createHmac('sha256', 'GwkQn36GPCizkzfcgmLcsFBN')
-
+        let hmac = crypto.createHmac('sha256', 'uYv5LJ2iLKKz6NfGJwQcvMKT')
+        
         hmac.update(details.payment.razorpay_order_id + '|' + details.payment.razorpay_payment_id)
         hmac = hmac.digest('hex')
         if (hmac == details.payment.razorpay_signature) {
@@ -116,6 +116,7 @@ module.exports = {
             await orders.updateOne({orderDetails:{$elemMatch:{_id:details.order.receipt}}},{'orderDetails.$.status':'placed order'})
             res.json({ status: true })
         } else {
+            console.log('fails');
             res.json({ status: false })
         }
     },

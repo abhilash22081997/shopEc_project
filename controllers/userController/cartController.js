@@ -36,7 +36,7 @@ module.exports = {
                 let userId = req.session.userId;
                 let products = await cart.findOne({ userId: userId }).populate('cartItems.productId') 
                 let productDetails = products.cartItems;
-
+console.log('haaaaaaaaaaaa');
                 if (!products) {
                     res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, msg: 'cart is empty' })
                 } else {
