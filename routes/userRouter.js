@@ -38,5 +38,9 @@ router.post('/placeOrder',authUser,checkoutController.placeOrder)
 router.post('/verifyPayment',authUser,checkoutController.onlinePaymentVerify)
 
 router.get('/confirmation',authUser,checkoutController.orderConfirmation)
+
+router.get('/logout',authUser,userLoginController.logout)
+
+router.get('/orderDetails',authUser,userLoginController.orderDetails)
   
 module.exports = router;   

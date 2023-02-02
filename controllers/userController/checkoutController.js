@@ -55,7 +55,7 @@ module.exports = {
     placeOrder:async(req,res)=>{
         let userId = req.session.userId;   
         let { paymentMethod, address, total } = req.body
-        console.log(total)
+      
         if (!req.body.address || !req.body.paymentMethod) {
             res.json({ paymentOrAddress: false })
         } else {
@@ -125,8 +125,8 @@ module.exports = {
         let order = await orders.findOne({ userId: userId }, { orderDetails: { $slice: -1 } }).lean()
         let orderDetails = order.orderDetails[0]
         let address = orderDetails.address
-        let date = orderDetails.createdAt
-        date = date.toDateString()
+        let date = orderDetails.createdAt.toString().slice(0,16)
+        // date = date.toDateString()
         res.render('user/confirmation', { admin:false,user: true, userLogged: true, address, orderDetails, date })
     },
 } 

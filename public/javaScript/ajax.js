@@ -82,7 +82,6 @@ $('#placeOrderForm').submit((e)=>{
 })
 
 function razorPayment(order) {
-    console.log('hlo');
     var options = {
         'key': 'rzp_test_7ACCY6CqD2y8m1',
         'amount': order.amount,

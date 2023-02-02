@@ -47,5 +47,15 @@ postLoginPage:async (req, res) => {
         console.log(error.message)
     }
 },
+logout:async(req,res)=>{
+    req.session.userId = null 
+    res.redirect('/');
+},
+orderDetails:async(req,res)=>{
+
+    if(req.session.userId){
+        
+    } 
+}
 
 }

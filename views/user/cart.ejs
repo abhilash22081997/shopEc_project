@@ -85,7 +85,7 @@
             </div>
           </div>
         </section>
-        <% if(msg=='') {%> 
+        <% if(!subTotal==0) {%> 
         <section class="py-5">
           <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
           <div class="row">
@@ -150,7 +150,7 @@
                     <% }) %> 
                     <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small" id="totalCartPrice">₹<%=subtotal%> </span></li>
                     <li class="border-bottom my-2"></li>
-                    <li class="d-flex align-items-center justify-content-between mb-4"><span class="text-capitalize ">Shipping charge</span><span class="text-muted small" id="shippingCharge">₹<% let shippingCost=50; if(subtotal>500){shippingCost=0}%><%= shippingCost %>  </span></li>
+                    <li class="d-flex align-items-center justify-content-between mb-4"><span class="text-capitalize ">Shipping charge</span><span class="text-muted small" id="shippingCharge">₹<% let shippingCost=0; if(subtotal<500 && subtotal>0){shippingCost=shippingCost+50}%><%= shippingCost %>  </span></li>
                     <li class="border-bottom my-2"></li>
                     <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span id="fullTotal">₹<%= shippingCost+subtotal %> </span></li>
                     <!-- <li>
