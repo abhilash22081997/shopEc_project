@@ -126,7 +126,6 @@ module.exports = {
         let orderDetails = order.orderDetails[0]
         let address = orderDetails.address
         let date = orderDetails.createdAt.toString().slice(0,16)
-        // date = date.toDateString()
         res.render('user/confirmation', { admin:false,user: true, userLogged: true, address, orderDetails, date })
     },
 } 

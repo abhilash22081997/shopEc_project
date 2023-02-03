@@ -3,6 +3,7 @@ const userLoginController=require('../controllers/userController/userLoginContro
 const userHomeController = require('../controllers/userController/userHomeController')
 const cartController = require('../controllers/userController/cartController')
 const checkoutController = require('../controllers/userController/checkoutController')
+const orderController = require('../controllers/userController/order')
 const authUser = require('../middleware/authUser').authUser
 
 
@@ -41,6 +42,6 @@ router.get('/confirmation',authUser,checkoutController.orderConfirmation)
 
 router.get('/logout',authUser,userLoginController.logout)
 
-router.get('/orderDetails',authUser,userLoginController.orderDetails)
+router.get('/orderDetails',authUser,orderController.getOrderDetails)
   
 module.exports = router;   

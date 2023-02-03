@@ -50,12 +50,7 @@ postLoginPage:async (req, res) => {
 logout:async(req,res)=>{
     req.session.userId = null 
     res.redirect('/');
-},
-orderDetails:async(req,res)=>{
-
-    if(req.session.userId){
-        
-    } 
 }
+
 
 }
