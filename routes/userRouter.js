@@ -43,5 +43,7 @@ router.get('/confirmation',authUser,checkoutController.orderConfirmation)
 router.get('/logout',authUser,userLoginController.logout)
 
 router.get('/orderDetails',authUser,orderController.getOrderDetails)
+ 
+router.get('/singleOrderDetails/:id',authUser,orderController.getSingleOrderDetails)
   
 module.exports = router;   

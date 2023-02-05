@@ -43,53 +43,33 @@
                 <div class="col-md-12">
                     <div class="card border-0 rounded-0 p-lg-4 bg-light">
                       <div class="card-body">
-                          <!-- <h5>order details</h5> -->
-                          <br>
-                        <% if(orderDetails){  %>  
+                        <% if(orderedProducts){  %>  
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col"></th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col">Amount</th>
-                                            <th scope="col">Payment</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col"></th>
+                                          
+                                            <th scope="col">Product Name</th>
+                                            <th scope="col">Product Image</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">quantity</th>
+                                   
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      <% count=0 %> 
-                                       <%orderDetails.forEach((order)=>{%>  
+                                       <%orderedProducts.forEach((product)=>{%>  
                                         <tr style="font-weight: normal;">
-                                            <td><%=count=count+1%> </td>
                                             <td>
-                                                <h5 class="font-weight-normal"><%=order.date%></h5>
-                                            </td>
-                                            <td>
-                                                <h5 class="font-weight-normal"><%=order.address.name%></h5>
-                                                <h5 class="font-weight-normal"><%=order.address.houseName%></h5>
-                                                <h5 class="font-weight-normal"><%=order.address.district%>,</h5>
-                                                <h5 class="font-weight-normal"><%=order.address.pincode%></h5>
-                                            </td>
-                                            <td>
-                                                <h5>₹<%=order.total%></h5>
-                                            </td>
-                                           
-                                          
-                                             <td>
-                                                <h5 class="font-weight-normal"><%=order.paymentMethod%></h5>
-                                            </td>
-                                             <td>
-                                                <h5 class="font-weight-normal"><%=order.status%> </h5>
-                                            </td>
-                                            <td>
-                                                
-                                                <button type="button"class="btn btn-dark rounded-pill"><a class="text-white" href="/singleOrderDetails/<%=order._id%>">View Details</a></button>
-
-
-                                               
+                                                <h5 class="font-weight-normal"><%=product.productId.name%></h5>
+                                                </td>
+                                                <td>
+                                                <img src="/<%=product.productId.imagePath%>" alt=".."width="100">
+                                              </td>
+                                                <td>
+                                                <h5 class="font-weight-normal">₹ <%=product.productId.srp%></h5>
+                                              </td>
+                                              <td>
+                                                <h5 class="font-weight-normal"><%=product.quantity%></h5>
                                             </td>
                                         </tr>
                                       <%})%>    
