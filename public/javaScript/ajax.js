@@ -126,3 +126,40 @@ function verifyPayment(payment, order) {
         }
     })
 }  
+function addToWishlist(proId) {
+    $.ajax({
+        url:'/addToWishlist',
+        data: {
+            proId: proId,
+        },
+        method:'POST',
+        success:(response)=>{
+            if(response.alreadyExist){
+                swal("Product already in wishlist")  
+            }else if(!response.userLogged){
+                location.href = '/login'
+            }
+            else
+            {
+                swal("", "Product added to wishlist", "success")
+            }
+            // if(!response.userLogged){
+            //     location.href = '/login' 
+            // }
+        }
+    })
+}
+function removeWishlist(proId){
+    $.ajax({
+        url: '/removeFromWishlist',
+        data: {
+            proId: proId
+        },
+        method: 'POST',
+        success: (response)=>{
+            if(response.status){
+                location.reload()
+            }
+        }
+    }) 
+}

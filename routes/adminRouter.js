@@ -12,7 +12,6 @@ router.post('/',adminController.loginPost)
 router.get('/home',adminController.adminHome)
 router.get('/userDetails',userController.userGet)
 router.get('/userAction',userController.userAction)
-
 router.get('/categories',categoryController.categoriesGet)
 router.post('/categories',uploadToFile.single('image', 12),categoryController.categoriesPost)
 router.get('/categoryAction',categoryController.categoryAction);

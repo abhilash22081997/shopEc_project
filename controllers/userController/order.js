@@ -22,7 +22,7 @@ module.exports={
             console.log("<<<<<<<<",order,">>>>>>>>>>>>>>");
             let orderedProducts = order.orderDetails[0].orderItems
             console.log(orderedProducts);
-            res.render('user/singleOrderDetails', { admin:false,user: true, userOrder: true,userLogged:true,orderedProducts})
+            res.render('user/singleOrderDetails', { admin:false,user: true, userOrder: true,userLogged:true,orderedProducts,userId})
 
         }     
     }

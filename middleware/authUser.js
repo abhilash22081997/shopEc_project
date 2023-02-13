@@ -5,7 +5,13 @@ module.exports={
             return next()
         }
         else{
-            res.redirect('/login');
+            if(req.xhr){
+                console.log("it's ajax logged false");
+                res.json({userLogged:false});
+            }else{
+                res.redirect('/login');
+            }
+            
         }
     }
 }   

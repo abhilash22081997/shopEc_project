@@ -5,7 +5,7 @@ const cartController = require('../controllers/userController/cartController')
 const checkoutController = require('../controllers/userController/checkoutController')
 const orderController = require('../controllers/userController/order')
 const authUser = require('../middleware/authUser').authUser
-
+const wishlistController = require('../controllers/userController/wishlist')
 
 
 
@@ -23,6 +23,8 @@ router.get('/',userHomeController.getHome)
 router.get('/singleProduct/:id',userHomeController.getSingleProduct)
 
 router.get('/addToCart/:productId',cartController.addToCart)
+
+router.get('/addToCartWish/:productId',cartController.addToCartWish)
 
 router.get('/cart',cartController.getCart)
 
@@ -45,5 +47,11 @@ router.get('/logout',authUser,userLoginController.logout)
 router.get('/orderDetails',authUser,orderController.getOrderDetails)
  
 router.get('/singleOrderDetails/:id',authUser,orderController.getSingleOrderDetails)
+
+router.post('/addToWishlist',authUser,wishlistController.addToWishlist)
   
+router.get('/wishlist',authUser,wishlistController.getWishlist)
+
+router.post('/removeFromWishlist',authUser,wishlistController.removeWishlist)
+
 module.exports = router;   

@@ -47,42 +47,37 @@
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
-                                        <tr>
-                                          
+                                        <tr>  
                                             <th scope="col">Product Name</th>
                                             <th scope="col">Product Image</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">quantity</th>
-                                   
                                         </tr>
                                     </thead>
                                     <tbody>
                                        <%orderedProducts.forEach((product)=>{%>  
-                                        <tr style="font-weight: normal;">
+                                         <tr style="font-weight: normal;">
                                             <td>
                                                 <h5 class="font-weight-normal"><%=product.productId.name%></h5>
-                                                </td>
-                                                <td>
+                                            </td>
+                                            <td>
                                                 <img src="/<%=product.productId.imagePath%>" alt=".."width="100">
-                                              </td>
-                                                <td>
+                                            </td>
+                                            <td>
                                                 <h5 class="font-weight-normal">₹ <%=product.productId.srp%></h5>
-                                              </td>
-                                              <td>
+                                            </td>
+                                            <td>
                                                 <h5 class="font-weight-normal"><%=product.quantity%></h5>
                                             </td>
-                                        </tr>
+                                         </tr>
                                       <%})%>    
                                     </tbody>
                                 </table>
                             </div>
-                  
-                     </div>
-                    </div>                 
-                  </div>
-                    
-                             
-            </div> 
+                           </div>
+                        </div>                 
+                      </div>                  
+                    </div> 
             <%}else{%> 
                 <h1>There have no orders in your account</h1>
               <%}%>         
