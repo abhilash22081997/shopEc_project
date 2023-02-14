@@ -8,14 +8,17 @@ module.exports = {
     },
     categoriesPost: async (req, res) => {
         try {
-            let imagePath = req.file.path;
-            imagePath = imagePath.replace('public/', '');
-            const newCategory = new categories({
-                category: req.body.name,
-                imagePath: imagePath
-            })
+            let categoryExist = await categories.findOne({category:req.body.name});
+            if(!categoryExist){
+                let imagePath = req.file.path;
+                imagePath = imagePath.replace('public/', '');
+                const newCategory = new categories({
+                    category: req.body.name,
+                    imagePath: imagePath
+                })
+                const categoryData = await newCategory.save();
+            }
 
-            const categoryData = await newCategory.save();
             res.redirect('/admin/categories')
         } catch (error) {
             console.log(error.message);

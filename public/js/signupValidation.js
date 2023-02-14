@@ -76,8 +76,17 @@ function validatePassword() {
     }
 }
 
-userSignupForm.addEventListener('submit', (e) => {
+
+// userSignupForm.addEventListener('submit', (e) => {
+//     console.log('above that');
+//     if (validateName() || validateEmail() || validatePassword()) {
+//         console.log('its validating');
+//         e.preventDefault();
+//     }
+// })
+
+function validateee(){
     if (validateName() || validateEmail() || validatePassword()) {
-        e.preventDefault();
+        return false;
     }
-})
+}

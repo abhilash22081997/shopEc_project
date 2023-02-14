@@ -91,7 +91,7 @@
           
           <div class="row">
             <div class="col-lg-8">
-              <form action="/signup" method="post">
+              <form action="/signup" id="signupFormValidate" method="post" onsubmit="return validateee()">
                 <div class="row gy-3">
                   <div class="col-lg-6">
                     <p class="ml-1 mt-2 text-danger"><%=emailExistMessage%></p>
@@ -113,7 +113,7 @@
                   
                   <div class="col-lg-6">
                     <label class="form-label text-sm text-uppercase" for="passwordField">PASSWORD </label>
-                    <input class="form-control form-control-lg" name="password" type="password" id="passwordField" onfocusout="validatePassword()" placeholder="enter your password" required>
+                    <input class="form-control form-control-lg" name="password" type="password" id="passwordField" placeholder="enter your password" oninput="validatePassword()"  onfocusout="validatePassword()"  required>
                   </div>
                   <div class="col-lg-6">
                     <p class="ml-1 mt-2 text-danger" id="passwordError"></p>

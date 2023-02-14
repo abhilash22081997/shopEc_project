@@ -1,5 +1,6 @@
 const admins = require('../../models/adminModel')
 const bcrypt = require('bcrypt')
+let message = '';
 module.exports = {
     loginGet: (req, res) => {
         if (req.session.admin) {
