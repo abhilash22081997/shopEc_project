@@ -103,6 +103,10 @@
     <% if(!subTotal==0) {%>
       <section class="py-5">
         <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
+        <div style="margin-right: 150px; text-align: right;">
+          <p id="invalidCoupon" class="text-danger mt-1 mb-4 ml-1 d-none">Invalid coupon code.</p>
+          <p id="couponApplied" class="text-success mt-1 mb-4 ml-1 d-none">Coupon Applied.</p>
+        </div>
         <div class="row">
           <div class="col-lg-8 mb-4 mb-lg-0">
             <!-- CART TABLE-->
@@ -165,9 +169,12 @@
             <!-- CART NAV-->
             <div class="bg-light px-4 py-3">
               <div class="row align-items-center text-center">
-                <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm"
-                    href="/"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
-                <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="/checkout">Procceed to
+                <div class="col-md-6 mb-3 mb-md-0">
+
+                </div>
+                <!-- <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm"
+                    href="/"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div> -->
+                <div class="col-md-6 text-md-end"><a onclick="return proceedtoCheckout()" class="btn btn-outline-dark btn-sm">Procceed to
                     checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
               </div>
             </div>
@@ -190,17 +197,21 @@
                             id="shippingCharge">₹<% let shippingCost=0; if(subtotal<500 && subtotal>
                               0){shippingCost=shippingCost+50}%><%= shippingCost %> </span></li>
                         <li class="border-bottom my-2"></li>
+                        <li class="d-flex align-items-center justify-content-between mb-4"><span
+                          class="text-capitalize ">Coupon discount</span><span class="text-muted small"
+                          id="couponDiscount">₹ <%= couponDiscount %> </span></li>
+                        <li class="border-bottom my-2"></li>
                         <li class="d-flex align-items-center justify-content-between mb-4"><strong
                             class="text-uppercase small font-weight-bold">Total</strong><span id="fullTotal">₹<%=
                               shippingCost+subtotal %> </span></li>
-                        <!-- <li>
-                      <form action="#">
-                        <div class="input-group mb-0">
-                          <input class="form-control" type="text" placeholder="Enter your coupon">
-                          <button class="btn btn-dark btn-sm w-100" type="submit"> <i class="fas fa-gift me-2"></i>Apply coupon</button>
-                        </div>
-                      </form>
-                    </li> -->
+                        <li>
+                          <form id="couponForm">
+                            <div class="input-group mb-0">
+                              <input class="form-control" type="text" name="couponCode" id="couponCode" placeholder="Enter your coupon">
+                              <button class="btn btn-dark btn-sm w-100" type="submit"> <i class="fas fa-gift me-2"></i>Apply coupon</button>
+                            </div>
+                          </form>
+                        </li>
                 </ul>
               </div>
             </div>

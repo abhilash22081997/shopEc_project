@@ -54,4 +54,8 @@ router.get('/wishlist',authUser,wishlistController.getWishlist)
 
 router.post('/removeFromWishlist',authUser,wishlistController.removeWishlist)
 
+router.post('/applyCoupon',authUser,cartController.applyCoupon)
+
+router.post('/proceedtoCheckout',authUser,checkoutController.proceedtoCheckout)
+
 module.exports = router;   

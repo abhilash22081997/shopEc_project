@@ -163,3 +163,71 @@ function removeWishlist(proId){
         }
     }) 
 }
+
+let count = 0; 
+$('#couponForm').submit((e) => {
+    e.preventDefault();
+    $.ajax({
+        url: '/applyCoupon',
+        method: 'post',
+        data: $('#couponForm').serialize(),
+        success: (result) => {
+            if (result.message) {
+                console.log('message was here');
+                $('#invalidCoupon').addClass('d-none');
+                $('#couponApplied').addClass('d-none');
+            } else {
+                if (!result.invalid) {
+                        if (count == 0) {
+                            count = 1;
+                            let shipping_Cost = 0;
+                            let currentSubTotal = parseInt($('#totalCartPrice').html().replace(/^\D+/g, ''));
+                            console.log(currentSubTotal);
+                            if (currentSubTotal < 500) {
+                                $('#shippingCharge').html('₹ 50');
+                                shipping_Cost = 50;
+                            } else {
+                                $('#shippingCharge').html('₹ 0');
+                                shipping_Cost = 0;
+                            }
+    
+                            $('#invalidCoupon').addClass('d-none');
+                            $('#couponApplied').removeClass('d-none');
+                            let discount = result.percentage;
+                            let subTotal = $('#totalCartPrice').html().replace(/^\D+/g, '');
+                            console.log('subTotal = ',subTotal);
+                            console.log('discount = ',discount);
+                            console.log('result',result);
+                            let discountPrice = Math.round(subTotal * discount / 100);
+                            console.log('discountPrice = ',discountPrice);
+                            subTotal = subTotal - discountPrice;
+                            $('#discount').removeClass('d-none');
+                            $('#discountPrice').removeClass('d-none');
+                            $('#discountPrice').html('₹ ' + discountPrice);
+                            $('#couponDiscount').html('₹ ' + (discountPrice));
+                            $('#fullTotal').html('₹ ' + (subTotal + shipping_Cost));
+                        }
+                } else {
+                    $('#invalidCoupon').removeClass('d-none');
+                    $('#couponApplied').addClass('d-none');
+                }
+            }
+        }
+    })
+})
+function proceedtoCheckout() {
+    console.log('proceed to checkout');
+    let couponCode = document.getElementById('couponCode').value;
+    console.log(couponCode,'coupnCode');
+
+    $.ajax({
+        url: '/proceedtoCheckout',
+        method: 'post',
+        data: {
+            couponCode: couponCode
+        },
+        success: (response) => {
+            location.href = '/checkout'
+        }
+    })
+}

@@ -2,6 +2,8 @@ const carts = require("../../models/cartModel");
 const user = require('../../models/userModel');
 const addresses = require('../../models/addressModel');
 const orders = require('../../models/orderModel')
+const coupon = require('../../models/coupenModel')
+
 const mongoose = require('mongoose')
 const Razorpay = require('razorpay');
 require('dotenv/config');
@@ -9,29 +11,43 @@ require('dotenv/config');
 var razorpayInstance = new Razorpay({
     key_id: process.env.RAZORPAY_KEYID,
     key_secret: process.env.RAZORPAY_SECRET,
-});
+})
+let couponCodeV
+
 
 module.exports = {
     checkoutPage: async (req, res) => {
+            console.log(couponCodeV,'coponcodev');
             let userId = req.session.userId
             console.log(userId);
             let addresss = await addresses.findOne({ userId: userId })
             console.log(addresss);
             let total = 0;
             userId = mongoose.Types.ObjectId(userId)
-           let products = await carts.findOne({ userId: userId }).populate('cartItems.productId')
-           let subTotal = 0;
-           let shippingCost = 0;
-           let productDetails = products.cartItems
-           productDetails.forEach((element) => {
-               subTotal += (element.productId.srp * element.quantity)
-           });
-           if (subTotal > 500) {
-               shippingCost = 0; 
-           } else {
-               shippingCost = 50;
-           }
-           total = subTotal + shippingCost
+            let products = await carts.findOne({ userId: userId }).populate('cartItems.productId')
+            let subTotal = 0;
+            let shippingCost = 0;
+            let productDetails = products.cartItems
+                productDetails.forEach((element) => {
+                subTotal += (element.productId.srp * element.quantity)
+            });
+            if (subTotal > 500) {
+                shippingCost = 0; 
+            } else {
+                shippingCost = 50;
+            }
+           
+            if (couponCodeV) {
+                let discountPrice = Math.round(subTotal * couponCodeV.percentage / 100)
+                subTotal = subTotal - discountPrice;
+                total = subTotal + shippingCost;
+                console.log('total inside id couponCodev = ',total);
+                console.log('subtotal inside id couponCodev = ',subTotal);
+
+            } else {
+                total = subTotal + shippingCost;
+            }
+           
             if (addresss) {
                 let addressdata = addresss.address
                 console.log(addressdata);
@@ -128,4 +144,9 @@ module.exports = {
         let date = orderDetails.createdAt.toString().slice(0,16)
         res.render('user/confirmation', { admin:false,user: true, userLogged: true, address, orderDetails, date })
     },
+    proceedtoCheckout: async (req, res) => {
+        const couponCode = req.body.couponCode;
+        couponCodeV = await coupon.findOne({code:couponCode, status:true});
+        res.json({ status: true });
+    }
 } 

@@ -1,4 +1,5 @@
 const cart = require('../../models/cartModel')
+const coupon = require('../../models/coupenModel')
 const mongoose = require('mongoose')
 
 module.exports = {
@@ -38,7 +39,7 @@ module.exports = {
             let products = await cart.findOne({ userId: userId }).populate('cartItems.productId')
             let productDetails = products.cartItems;
             if (!products) {
-                res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, subTotal })
+                res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, subTotal, couponDiscount:0 })
             } else {
 
 
@@ -47,7 +48,7 @@ module.exports = {
                 });
 
 
-                res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, subTotal })
+                res.render('user/cart', { data: productDetails, user: true, admin: false, userLogged: true, subTotal, couponDiscount:0 })
             }
         } catch (error) {
             console.log(error.message)
@@ -106,5 +107,31 @@ module.exports = {
         } catch (error) {
             console.log(error.message);
         }
-    }
+    },
+    applyCoupon: async (req, res) => {
+        try {
+            let { couponCode } = req.body;
+            console.log(couponCode);
+            let subTotal_forCoupon = 0;
+            const cartData = await cart.findOne({userId: req.session.userId}).populate('cartItems.productId');
+            console.log('hello = ',cartData);
+            let productDetails = cartData.cartItems;
+                productDetails.forEach((element) => {
+                    subTotal_forCoupon += (element.productId.srp * element.quantity);
+                });
+            couponCode = couponCode.toUpperCase();
+            const couponData = await coupon.findOne({ code:couponCode, status: true});
+            if (!couponData) {
+                console.log('inside null');
+                res.json({invalid:true});
+            } else {
+                await coupon.findOne({ code:couponCode, status: true }).then((result) => {
+                    res.json(result);
+                });
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
+    
 }

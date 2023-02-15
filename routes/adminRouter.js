@@ -4,7 +4,9 @@ const userController=require('../controllers/adminController/userController')
 const categoryController = require('../controllers/adminController/categoryController')
 const productController = require('../controllers/adminController/productController')
 const bannerController = require('../controllers/adminController/bannerController')
+const couponController = require('../controllers/adminController/couponController')
 const uploadToFile = require('../middleware/multer');
+const { route } = require('./userRouter')
 
 router.get('/',adminController.loginGet)
 
@@ -37,5 +39,12 @@ router.post('/editProduct/:id',uploadToFile.single('image',12),productController
 router.get('/banner',bannerController.bannerGet)
 
 router.post('/banner',uploadToFile.single('imagePath', 12),bannerController.bannnerPost)
+
+router.get('/coupons',couponController.couponGet)
+
+router.post('/coupons',couponController.couponPost)
+
+router.get('/couponAction',couponController.couponAction)
+
 
 module.exports=router;
