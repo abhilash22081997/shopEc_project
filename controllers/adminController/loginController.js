@@ -42,6 +42,10 @@ module.exports = {
         } else {
             res.redirect('/admin')
         }
+    },
+    logout:async(req,res)=>{
+        req.session.admin = null
+        res.redirect('/admin');
     }
 
 }

@@ -46,5 +46,7 @@ router.post('/coupons',couponController.couponPost)
 
 router.get('/couponAction',couponController.couponAction)
 
+router.get('/logout',adminController.logout)
+
 
 module.exports=router;
